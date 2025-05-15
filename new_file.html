@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}管理员后台{% endblock %}
+{% block header %}欢迎，{{ user.username }}（管理员）{% endblock %}
+{% block content %}
+  <div class="my-4">
+    <a href="{% url 'register' %}" class="btn btn-primary-custom mb-3">注册新用户</a>
+    <a href="{% url 'change_password' %}" class="btn btn-primary-custom mb-3">修改密码</a>
+  </div>
+  <h2 class="mb-3">数据管理</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>数据项</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in object_list %}
+        <tr>
+          <td>{{ obj.name }}</td>
+          <td>
+            <a href="{% url 'edit_data' obj.id %}" class="btn btn-sm btn-outline-secondary">编辑</a>
+            <a href="{% url 'delete_data' obj.id %}" class="btn btn-sm btn-outline-danger">删除</a>
+            <a href="{% url 'view_data' obj.id %}" class="btn btn-sm btn-outline-primary">查看</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="2">暂无数据</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
